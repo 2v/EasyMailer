@@ -1,0 +1,24 @@
+# This file should list every element of the mailer template in a list format. Each separate element should start with
+# a $. Larger elements in the mailer with sub elements should be marked as any other element, yet the subelements should
+# appear directly under the overarching element and should start with $$.
+
+$ background-color
+$ title
+$ facebook-social
+$ google-social
+$ instagram-social
+$ pinterest-social
+$ twitter-social
+$ logo
+$ full-span-image
+$ title
+$ paragraph
+$ blue-white-divider-top
+$ blue-white-divider-bottom
+$ event
+$$ date
+$$ title
+$$ description
+$ picture-left-half
+$ picture-right-half
+$ footer
