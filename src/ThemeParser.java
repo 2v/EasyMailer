@@ -5,28 +5,29 @@ import java.util.Scanner;
 
 public class ThemeParser {
 
-    public static String themePath;
+    private static String themePath = "themes/blue-white/assets.txt";
 
-    public static int parentRank = 0;
-    public static int subRank = 1;
+    private static int parentRank = 0;
+    private static int subRank = 1;
 
-    public static ArrayList<String> elements = new ArrayList<>();
-    public static ArrayList<String> temp = new ArrayList<>();
+    private ArrayList<String> elements = new ArrayList<>();
+    private ArrayList<String> temp = new ArrayList<>();
 
     public ThemeParser(String themePath) {
-        this.themePath = themePath;
+        ThemeParser.themePath = themePath;
 
         // pass the path to the file as a parameter
         File file = new File(themePath);
-        Scanner sc = null;
+        Scanner rawElements = null;
+
         try {
-            sc = new Scanner(file);
+            rawElements = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        while (sc.hasNextLine()) {
-            String next = sc.nextLine();
+        while (rawElements.hasNextLine()) {
+            String next = rawElements.nextLine();
             elements.add(next);
             temp.add(next);
         }
@@ -36,7 +37,7 @@ public class ThemeParser {
 
             // highest ranking elements
             if (rank == parentRank) {
-                elements.set(i, elements.get(i).substring(elements.get(i).indexOf(" ", 1)));
+                elements.set(i, elements.get(i).substring(elements.get(i).indexOf(" ", 0)));
                 System.out.println(elements.get(i));
             }
 
@@ -49,16 +50,24 @@ public class ThemeParser {
                         break;
                     }
                 }
-                elements.set(i, parent + "." + temp.get(i).substring(elements.get(i).indexOf(" ", 1) + 1));
+                elements.set(i, parent + "." + temp.get(i).substring(elements.get(i).indexOf(" ", 0) + 1));
                 System.out.println(elements.get(i));
             }
         }
     }
 
+    public ThemeParser() {
+        this(themePath);
+    }
+
+    public ArrayList<String> getElements() {
+        return elements;
+    }
+
     public static void main(String[] args) throws Exception
     {
-        ThemeParser parse = new ThemeParser("themes/blue-white/assets.txt");
-        for (String element : elements) {
+        ThemeParser parse = new ThemeParser();
+        for (String element : parse.getElements()) {
             System.out.println(element);
         }
     }
