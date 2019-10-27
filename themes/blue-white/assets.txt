@@ -2,6 +2,7 @@
 # a $. Larger elements in the mailer with sub elements should be marked as any other element, yet the subelements should
 # appear directly under the overarching element and should start with $$.
 
+$ gen
 $ background-color
 $ title
 $ facebook-social
