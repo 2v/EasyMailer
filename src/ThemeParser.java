@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class ThemeParser {
 
-    public static String themePath;
+    public static String theme_path;
+    public static String assets_path;
 
     public static int parentRank = 0;
     public static int subRank = 1;
@@ -13,23 +14,26 @@ public class ThemeParser {
     public static ArrayList<String> elements = new ArrayList<>();
     public static ArrayList<String> temp = new ArrayList<>();
 
-    public ThemeParser(String themePath) {
-        this.themePath = themePath;
+    public ThemeParser(String assets_path, String theme_path) {
+        this.assets_path = assets_path;
+        this.theme_path = theme_path;
 
         // pass the path to the file as a parameter
-        File file = new File(themePath);
-        Scanner sc = null;
+        File file = new File(theme_path);
+        Scanner raw_elements = null;
+
         try {
-            sc = new Scanner(file);
+            raw_elements = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        while (sc.hasNextLine()) {
-            String next = sc.nextLine();
+        while (raw_elements.hasNextLine()) {
+            String next = raw_elements.nextLine();
             elements.add(next);
             temp.add(next);
         }
+
 
         for (int i=0; i < elements.size(); i++) {
             int rank = elements.get(i).lastIndexOf("$");
@@ -55,9 +59,14 @@ public class ThemeParser {
         }
     }
 
+    public String GetElement(String element) {
+        // gets part of HTML file that is delimited by the the element tag in the form of a string
+
+    }
+
     public static void main(String[] args) throws Exception
     {
-        ThemeParser parse = new ThemeParser("themes/blue-white/assets.txt");
+        ThemeParser parse = new ThemeParser("themes/blue-white/assets.txt", "themes/blue-white/theme.html");
         for (String element : elements) {
             System.out.println(element);
         }
