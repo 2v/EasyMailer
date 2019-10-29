@@ -1,8 +1,13 @@
 # This file should list every element of the mailer template in a list format. Each separate element should start with
 # a $. Larger elements in the mailer with sub elements should be marked as any other element, yet the subelements should
 # appear directly under the overarching element and should start with $$.
+#
+# Comments start with #, and will not be read by the parser. Only statements starting with $ will be read by the parser.
+#
+# Elements that are required for the mailer and that will be in the same position of the layout each time will start
+# with the required. parameter.
 
-$ gen
+$ required.gen
 $ background-color
 $ title
 $ facebook-social

@@ -1,8 +1,9 @@
-import java.io.BufferedReader;
+package cx.tab.easymailer;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ThemeParser {
@@ -16,6 +17,9 @@ public class ThemeParser {
     private ArrayList<String> elements = new ArrayList<>();
 
     private ArrayList<String> themelines = new ArrayList<>();
+
+    // This wap will be used to associate the various elements with their HTML counterparts
+    HashMap<String,String> parseMap = new HashMap<String,String>();
 
     public ThemeParser(String assets_path, String theme_path) {
         this.assets_path = assets_path;
@@ -69,6 +73,9 @@ public class ThemeParser {
                 elements.add(parent + "." + temp.get(i).substring(temp.get(i).indexOf(" ") + 1));
             }
         }
+
+        // TODO: implement portion that gets all HTML elements required by the assets file and puts them into the hashmap
+
     }
 
     public ThemeParser() {
@@ -106,8 +113,7 @@ public class ThemeParser {
         return elements;
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         // these lines are only here for testing the methods
 
         ThemeParser parse = new ThemeParser("themes/blue-white/assets.txt", "themes/blue-white/theme.html");
