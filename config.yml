@@ -1,0 +1,7 @@
+# Config file for the EasyMailer program
+
+# Set the path of the assets file
+assets_path: "themes/blue-white/assets.txt"
+
+# Set the path of the theme file
+theme_path: "themes/blue-white/theme.html"

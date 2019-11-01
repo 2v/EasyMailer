@@ -1,10 +1,11 @@
 package cx.tab.easymailer;
 
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.util.*;
 
 public class ThemeParser {
 
@@ -22,8 +23,13 @@ public class ThemeParser {
     HashMap<String,String> parseMap = new HashMap<String,String>();
 
     public ThemeParser(String assets_path, String theme_path) {
-        this.assets_path = assets_path;
-        this.theme_path = theme_path;
+        if (!(assets_path == "null" || theme_path == "null")) {
+            this.assets_path = assets_path;
+            this.theme_path = theme_path;
+        } else {
+            throw new RuntimeException("assets_path or theme_path not found. Please configure them in the config.yml file");
+        }
+
 
         // pass the path to the file as a parameter
         Scanner rawElements = null;
@@ -74,7 +80,10 @@ public class ThemeParser {
             }
         }
 
-        // TODO: implement portion that gets all HTML elements required by the assets file and puts them into the hashmap
+        // creates a map mapping elements to their html counterparts
+        for (String element : elements) {
+            parseMap.put(element, getElement(element));
+        }
 
     }
 
@@ -103,6 +112,8 @@ public class ThemeParser {
             for (int i = startLine; i <= endLine; i++) {
                 temp += themelines.get(i) + " \n";
             }
+        } else {
+            System.out.println("Element tags not found! Ensure that all elements are properly placed in the theme config file!");
         }
 
         // gets part of HTML file that is delimited by the the element tag in the form of a string
@@ -113,14 +124,4 @@ public class ThemeParser {
         return elements;
     }
 
-    public static void main(String[] args) throws Exception {
-        // these lines are only here for testing the methods
-
-        ThemeParser parse = new ThemeParser("themes/blue-white/assets.txt", "themes/blue-white/theme.html");
-        for (String element : parse.getElements()) {
-            System.out.println("FILTERED: " + element);
-        }
-
-        System.out.println(parse.getElement(parse.getElements().get(0)));
-    }
 }
